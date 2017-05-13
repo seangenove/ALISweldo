@@ -5,6 +5,8 @@
  */
 package controller;
 
+import classes.Employee;
+import classes.AddEmployee;
 import static java.lang.System.setSecurityManager;
 import java.rmi.*;
 import java.rmi.registry.*;
@@ -34,6 +36,23 @@ public class MainController {
             System.out.println("Server error");
             e.printStackTrace();
             return false;
+        }
+    }
+    
+    public static String login(String id, String password){
+        System.setProperty("java.security.policy", "file:./client.policy");
+        if (System.getSecurityManager() == null) {
+            System.setSecurityManager(new SecurityManager());
+        }
+        try {
+            Registry registry = LocateRegistry.getRegistry(ip, 1099);
+            AddEmployee comp = (AddEmployee) registry.lookup(name);
+            
+            return comp.login(id, password);
+        } catch (Exception e) {
+            System.out.println("Server error");
+            e.printStackTrace();
+            return "Server Error";
         }
     }
     

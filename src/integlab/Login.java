@@ -89,7 +89,7 @@ public class Login extends javax.swing.JFrame {
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/profile.png"))); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Eras Demi ITC", 0, 48)); // NOI18N
-        jLabel3.setText("ALISweldo");
+        jLabel3.setText("ALIsweldo");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -110,7 +110,7 @@ public class Login extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,21 +149,27 @@ public class Login extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.dispose();
-        String username = jTextField1.getText();
+        //this.dispose();
+        String id = jTextField1.getText();
         String password = jTextField2.getText();
-        if(username.equals("admin") && password.equals("admin")){
-            setVisible(false);
+        String response = MainController.login(id, password);
+        
+        if(response.equals("admin")){
             JOptionPane.showMessageDialog(null, "Succefully logged in!");
+            this.dispose();
             EmpJob empJobFrame = new EmpJob();
             empJobFrame.setVisible(true);
-        }else {
+        }else if(response.equals("success")) {
             JOptionPane.showMessageDialog(null, "Succefully logged in!");
+            this.dispose();
             Menu log = new Menu();
             log.setVisible(true);
+        } else{
+            JOptionPane.showMessageDialog(null, "Login failed. Credentials do not match any of our records.");
         }
 
         //        log.setVisible(true);
